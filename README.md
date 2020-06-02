@@ -19,6 +19,6 @@ Marvel、ガンダムなどのおもちゃを愛する人々
 ## 設計書
 
 ### 機能一覧
-<https://docs.google.com/spreadsheets/d/1W_HR8RrmsQiNM7itwB79S75DjwpxFLWnFR7S9J2pxEg/edit?usp=sharing>
+https://docs.google.com/spreadsheets/d/1W_HR8RrmsQiNM7itwB79S75DjwpxFLWnFR7S9J2pxEg/edit?usp=sharing
 
 
