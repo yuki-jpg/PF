@@ -1,0 +1,14 @@
+
+              <%= attachment_image_tag @posts, :image %>
+
+            <h2 class="post-title"><%= @posts.title %></h2>
+
+                By <a href="#"><%= @posts.member.name %></a>
+
+              <li>
+                <% if @posts.member == current_member %>
+                  <%= link_to "削除", post_path(@posts), method: :delete %>
+                <% end %>
+              </li>
+            </ul>
+              <p><%= @posts.content %></p>
