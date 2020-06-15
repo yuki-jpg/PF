@@ -1,0 +1,15 @@
+<% if post.favorited_by?(current_member) %>
+
+    <%= link_to post_favorites_path(post), method: :delete,class: "glyphicon glyphicon-heart" do %>
+
+    <%= post.favorites.count %>
+    <% end %>
+
+<% else %>
+
+    <%= link_to post_favorites_path(post), method: :post,class: "glyphicon glyphicon-heart-empty" do %>
+    <i class="fa fa-heart-o" aria-hidden="true"></i>
+    <%= post.favorites.count %>
+    <% end %>
+
+<% end %>

@@ -10,6 +10,38 @@
   </head>
 
   <body>
+   <header>
+    
+        <div class="flash_message">
+            <% if flash[:notice] %>
+                <p><%= flash[:notice] %></p>
+            <%end%>
+            <% if alert %>
+                <p><%= alert %></p>
+            <%end%>
+        </div>
+        <div class="select_icon">
+            <ul>
+                <% if admin_signed_in? %>
+                    <li class="special_icon"><%= link_to "会員一覧 ", admins_members_path, class: 'glyphicon glyphicon-user' %></li>
+                    <li class="special_icon"><%= link_to "ジャンル一覧", admins_types_path, class: 'glyphicon glyphicon-book books' %></li>
+                    <li class="special_icon"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>
+                <% elsif member_signed_in? %>
+                    <li class="special_icon"><%= link_to 'マイページ', member_path(current_member.id), class: 'glyphicon glyphicon-user' %></li>
+                    <li class="special_icon"><%= link_to '投稿一覧', posts_path, class: 'glyphicon glyphicon-list-alt' %></li>
+                    <li class="special_icon"><%= link_to "ログアウト", destroy_member_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>
+                <% else %>
+                    <li class="special_icon"><%= link_to ' 投稿一覧', posts_path, class: 'glyphicon glyphicon-picture' %></li>
+                    <li class="special_icon"><%= link_to ' 新規登録', new_member_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
+                    <li class="special_icon"><%= link_to ' ログイン', new_member_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
+                <% end %>
+          
+         
+            </ul>
+      
+        
+   
+</header>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,26 @@
+<h1><%=@members.name%>さんの会員情報編集</h1>
+<%#= render "layouts/error_messages", member: @member %>
+<%= form_for(@member, url: admins_member_path(@member.id))do |f| %>
+
+    <h3>顧客ID<%=@member.id%></h3>
+    <div class="field">
+      <%= f.label :ユーザーネーム%><br />
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :メールアドレス %><br />
+      <%= f.email_field :email %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :生年月日 %><br />
+      <%#= f.text_field :birthday%>
+    </div>
+    <label><%=f.radio_button :status, "有効会員"%>有効会員</label>
+    <label><%=f.radio_button :status, "無効会員"%>無効会員</label>
+
+    <div class="form">
+      <%= f.submit "変更を保存する" %>
+    </div>
+<% end %>

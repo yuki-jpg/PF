@@ -7,11 +7,11 @@
           <div class="col-md-6 col-md-offset-3 post_form">
             <div class="section-title-wrapper style-1 v1">
               <h3 class="section-title section-title-sm left">
-                <span>投稿フォーム</span>
+                <span>編集フォーム</span>
               </h3>
             </div>
 
-            <%= form_for @post, url: posts_path do |f| %>
+            <%= form_for @post, url: post_path(@post) do |f| %>
               <% if @post.errors.any? %>
                 <div id="error_explanation">
                   <h2><%= @post.errors.count %>件のエラーが発生しました。</h2>
@@ -24,6 +24,7 @@
               <% end %>
               <div class="row">
                 <div class="col-sm-12">
+                  <%= attachment_image_tag @post, :image,:fill, 100, 100, fallback: "no_image.jpg", class: "img-circle pull-left profile-thumb" %>
                   <%= f.attachment_field :image %>
                 </div>
               </div>
@@ -45,7 +46,7 @@
                 </div>
               </div>
               <hr>
-              <%= f.submit "送信", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
+              <%= f.submit "編集", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
             <% end %>
           </div>
         </div>

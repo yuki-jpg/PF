@@ -1,0 +1,28 @@
+<div class='container'>
+ <div class='col-md-6 col-md-offset-3'>
+
+  <h1>ジャンル編集</h1>
+  <!-- form_for部分 -->
+   <%= form_for :type, url: admins_type_path(@type), method: :patch do |f| %>
+
+  <div class="field row">
+
+      <label for="item_title">商品名</label>
+      <br>
+      <%= f.text_field :name, class:"form-control" %>
+       <div class="radio-inline">
+        <%= f.radio_button :status, :有効, checked: "checked" %>
+        <%= f.label :有効, class: "type_status_label" %>
+      </div>
+   <div class="radio-inline">
+    <%= f.radio_button :status, :無効 %>
+    <%= f.label :無効, class: "type_status__label" %>
+   </div>
+      <%= f.submit  %>
+
+
+  </div>
+   <% end %>
+
+ </div>
+</div>

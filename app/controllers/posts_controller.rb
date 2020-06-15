@@ -3,6 +3,7 @@ class PostsController < ApplicationController
 
   def show
   	@posts = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def index
@@ -37,7 +38,7 @@ class PostsController < ApplicationController
 
   def update
   	@post = Post.find(params[:id])
-  	if @Post.update(post_params)
+  	if @post.update(post_params)
   		redirect_to @post, notice: "successfully updated !"
   	else
   		render "edit"
@@ -48,6 +49,14 @@ class PostsController < ApplicationController
   	@post = Post.find(params[:id])
   	@post.destroy
   	redirect_to posts_path, notice: "successfully delete !"
+  end
+
+  def search
+    if params[:title].present?
+      @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
+    else
+      @posts = Post.none
+    end
   end
 
   private

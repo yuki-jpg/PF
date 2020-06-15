@@ -1,14 +1,52 @@
 
-              <%= attachment_image_tag @posts, :image %>
+
+              <%= attachment_image_tag @posts, :image,:fill, 200, 200 %>
 
             <h2 class="post-title"><%= @posts.title %></h2>
-
-                By <a href="#"><%= @posts.member.name %></a>
+                By <%= link_to @posts.member.name,member_path(@posts.member) %>
 
               <li>
                 <% if @posts.member == current_member %>
-                  <%= link_to "削除", post_path(@posts), method: :delete %>
+                <%= link_to '編集する', edit_post_path(@posts)%>
+                <%= link_to "削除", post_path(@posts), method: :delete %>
                 <% end %>
               </li>
             </ul>
               <p><%= @posts.content %></p>
+            <ol>
+             <% @posts.post_comments.each do |post_comment| %>
+              <li class="comment">
+                  <div class="comment-body bb">
+
+                      <div class="comment-text">
+                          <div class="comment-author clearfix">
+                              <a href="#" class="link-author"><%= post_comment.member.name %></a>
+                              <span class="comment-meta">
+                              <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+                              </span>
+                          </div>
+                          <div class="comment-entry"><%= post_comment.comment %>
+                           <% if post_comment.member == current_member %>
+                           <%= link_to '削除',  post_post_comments_path(@posts), method: :delete, class: "btn-sm btn-danger"  %>
+
+                          <% end %>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+             <% end %>
+            </ol>
+
+            <%= form_for [@posts, @post_comment] do |f| %>
+
+
+
+            <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+
+              <div class="actions row">
+                  <%= f.submit "送信", class: "pull-right" %>
+              </div>
+            <% end %>
+
+
