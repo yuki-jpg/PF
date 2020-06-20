@@ -17,6 +17,7 @@
         </tr>
         <th>自己紹介</th>
             <td><%= @member.introduction %>
+             <td><span id='follow_button'><%= render 'relationships/follow_button', member: @member %></span></td>
         </tr>
         <tr>
     </tbody>

@@ -1,11 +1,11 @@
 <% unless current_member == member %>
   <% if current_member.following?(member) %>
-    <%= form_for(current_member.relationships.find_by(follow_id: member.id), html: { method: :delete }) do |f| %>
+    <%= form_for(current_member.relationships.find_by(follow_id: member.id), html: { method: :delete,  remote: true }) do |f| %>
       <%= hidden_field_tag :follow_id, member.id %>
       <%= f.submit 'Unfollow', class: 'btn btn-danger btn-block' %>
     <% end %>
   <% else %>
-    <%= form_for(current_member.relationships.build) do |f| %>
+    <%= form_for(current_member.relationships.build, remote: true) do |f| %>
       <%= hidden_field_tag :follow_id, member.id %>
       <%= f.submit 'Follow', class: 'btn btn-primary btn-block' %>
     <% end %>

@@ -1,24 +1,29 @@
 class PostCommentsController < ApplicationController
-	def create
-    post = Post.find(params[:post_id])
-    comment = current_member.post_comments.new(post_comment_params)
-    comment.post_id = post.id
-    comment.save
-    redirect_back(fallback_location: root_path)
+
+
+
+def create
+    @post = Post.find(params[:post_id]) #①
+    @comment = @post.post_comments.build(comment_params) #②
+    @comment.member_id = current_member.id #③
+    if @comment.save
+      render :index #④
     end
+  end
 
   def destroy
-  post = Post.find(params[:post_id])
-  comment = current_member.post_comments.find_by(post_id: post.id)
-  comment.destroy
-  redirect_back(fallback_location: root_path)
+    @comment = PostComment.find(params[:id]) #⑤
+    if @comment.destroy
+      render :index #⑥
+    end
   end
 
+  private
+    def comment_params
+      params.require(:post_comment).permit(:comment, :post_id, :member_id)
+    end
 
-    private
-  def post_comment_params
-      params.require(:post_comment).permit(:comment)
-  end
+
 
 
 end

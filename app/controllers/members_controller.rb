@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   before_action :authenticate_member!, except: [:top]
 
     def show
-        @member = Member.find(current_member.id)
+        @member = Member.find(params[:id])
         @posts = @member.posts.all
         if @member.status == "無効会員"
             reset_session

@@ -1,15 +1,20 @@
+
+
+
 <% if post.favorited_by?(current_member) %>
-
-    <%= link_to post_favorites_path(post), method: :delete,class: "glyphicon glyphicon-heart" do %>
-
-    <%= post.favorites.count %>
+ <td>
+    <%= link_to post_favorites_path(post), method: :delete,remote: true do %>
+     <i class="fa fa-heart" id="<%= post.id %>"></i>
+     <%= post.favorites.count %>
     <% end %>
+  </td>
 
 <% else %>
-
-    <%= link_to post_favorites_path(post), method: :post,class: "glyphicon glyphicon-heart-empty" do %>
-    <i class="fa fa-heart-o" aria-hidden="true"></i>
+  <td>
+    <%= link_to post_favorites_path(post), method: :post,remote: true do %>
+     <i class="fa fa-heart-o" id="<%= post.id %>"></i>
     <%= post.favorites.count %>
     <% end %>
-
+  </td>
 <% end %>
+

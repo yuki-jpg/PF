@@ -12,41 +12,16 @@
                 <% end %>
               </li>
             </ul>
-              <p><%= @posts.content %></p>
-            <ol>
-             <% @posts.post_comments.each do |post_comment| %>
-              <li class="comment">
-                  <div class="comment-body bb">
-
-                      <div class="comment-text">
-                          <div class="comment-author clearfix">
-                              <a href="#" class="link-author"><%= post_comment.member.name %></a>
-                              <span class="comment-meta">
-                              <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-                              </span>
-                          </div>
-                          <div class="comment-entry"><%= post_comment.comment %>
-                           <% if post_comment.member == current_member %>
-                           <%= link_to '削除',  post_post_comments_path(@posts), method: :delete, class: "btn-sm btn-danger"  %>
-
-                          <% end %>
-                          </div>
-                      </div>
-                  </div>
-              </li>
-
-             <% end %>
-            </ol>
-
-            <%= form_for [@posts, @post_comment] do |f| %>
-
-
-
-            <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
-
-              <div class="actions row">
-                  <%= f.submit "送信", class: "pull-right" %>
-              </div>
-            <% end %>
+              
+    <h4>コメント</h4>
+    <div id="post_comments_area"><!-- #① -->
+      <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+      <%= render partial: 'post_comments/index', locals: { post_comments: @comments } %>
+    </div>
+    <% if member_signed_in? %>
+      <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+      <%= render partial: 'post_comments/form', locals: { post_comment: @comment, post: @posts } %>
+    <% end %>
+  </div>
 
 
