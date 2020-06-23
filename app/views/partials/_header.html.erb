@@ -1,0 +1,33 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <%= link_to root_path do %>
+          <%= image_tag 'logo.png', class: "logo",style:"width: 150px;" %>
+        <% end %>
+      </div>
+      <div class="col-md-7 header-nav">
+        <% if login? %>
+          <ul class="nav">
+            <li><%= link_to user_path(current_user)do %>
+              <%= image_tag 'mypage.png',style:"width: 68px;" %>
+            <% end %>
+            </li>
+            <li class="notification"><%= link_to notifications_path do %>
+              <%= image_tag 'notice.png',style:"width: 68px;" %>
+              <% end %>
+              <% if unchecked_notifications.any? %>
+                <i class="fa fa-circle notification-circle"></i>
+              <% end %>
+            </li>
+            <li><%= link_to new_search_path do %>
+            <%= image_tag 'serch.png',style:"width: 68px;" %>
+            <% end %>
+            </li>
+            <li><%= link_to 'ユーザ一覧', users_path, class:"btn"  %></li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>

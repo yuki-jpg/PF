@@ -1,31 +1,25 @@
 class RelationshipsController < ApplicationController
-	before_action :set_member
+  before_action :login_user?
 
   def create
-    following = current_member.follow(@member)
-    if following.save
-      
-     
-    else
-      flash.now[:alert] = 'ユーザーのフォローに失敗しました'
-      redirect_back(fallback_location: root_path)
+    followed=User.find(params[:followed_id])
+    @rel=current_user.follow(followed)
+    @user=User.find(params[:followed_id])
+    @user.create_notification_by(current_user)
+    respond_to do |format|
+      format.html { redirect_to request.referrer }
+      format.js
     end
   end
 
   def destroy
-    following = current_member.unfollow(@member)
-    if following.destroy
-      
-      
-    else
-      flash.now[:alert] = 'ユーザーのフォロー解除に失敗しました'
-      redirect_back(fallback_location: root_path)
+    rel=current_user.active_relationship.find(params[:id])
+    @user=User.find(rel.followed_id)
+    @user.delete_notification_by(current_user)
+    rel.destroy
+    respond_to do |format|
+      format.html { redirect_to request.referrer }
+      format.js
     end
   end
-
-  private
-  def set_member
-   @member = Member.find(params[:follow_id])
-  end
-
 end

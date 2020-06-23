@@ -1,0 +1,31 @@
+<div class="container post-show">
+  <div class="row">
+    <div class="col-md-6 clearfix">
+      <div class="img-container-large">
+        <%= image_tag @post&.image[:large].url %>
+      </div>
+      <%= link_to "#{@post.contributer.name} :", @post.contributer %>
+      <div class="post-content">
+        <%= @post.content %>
+      </div>
+      <div class="post-created-at pull-right">
+        <%= "#{time_ago_in_words(@post.created_at)}前" %>
+      </div>
+    </div>
+    <div class="col-md-6 clearfix post-show-right">
+      <div id="like_button">
+        <%= render 'partials/like_button' %>
+      </div>
+      <div id="post_comments">
+        <%= render 'posts/comments' %>
+      </div>
+      <button type="button" class="btn btn-default pull-right" data-dismiss="modal" style="width:82px;">閉じる</button>
+    </div>
+  </div>
+  <div class="container delete-post">
+    <% if current_user==@post.contributer %>
+      <hr>
+      <%= link_to '投稿を取り消す', @post, method: :delete, data:{confirm: "本当に取り消しますか"}, class:"btn btn-danger btn-block" %>
+    <% end %>
+  </div>
+</div>

@@ -1,34 +1,24 @@
 class ApplicationController < ActionController::Base
 
-    before_action :configure_permitted_parameters, if: :devise_controller?
+    include SessionsHelper
 
-def after_sign_in_path_for(resource)
-        case resource
-        when Member
-            flash[:notice] = "ようこそ、#{resource.name}さん"
-            root_path(resource)
-        when Admin
-            admins_top_path
-        end
+  def login_user?
+    unless login?
+      flash[:danger]="ログインが必要です"
+      redirect_to login_path
     end
+  end
 
-
-    def after_sign_out_path_for(resource)
-        if resource != :admin
-          root_path
-        else
-          new_admin_session_path
-        end
+  def correct_user?
+    user=User.find_by(id: params[:id])
+    unless user==current_user
+      flash[:danger]="このページにはアクセスできません"
+      redirect_to root_path
     end
+  end
 
-    def after_update_path_for(resource)
-        members_path(resource)
-    end
+  def set_default_post
+    @post=Post.new
+  end
 
-    protected
-
-    def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name, :birthday])
-        #サインインならこのカラムでもいいよっていうこと。必ずしもこのカラムを入力しなければならないことはない。viewページでサインアップに必要なカラムを調整できる
-    end
 end

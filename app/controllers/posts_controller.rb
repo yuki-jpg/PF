@@ -1,69 +1,64 @@
 class PostsController < ApplicationController
- before_action :authenticate_member!
-
-  def show
-  	@posts = Post.find(params[:id])
-    @comment = PostComment.new #①
-    @comments = @posts.post_comments #②
-  end
+before_action :login_user?
+  before_action :correct_user, only: :destroy
+  protect_from_forgery except: :create
 
   def index
-  	@posts = Post.all
+    redirect_to new_post_path
+  end
+
+  def show
+    @post=Post.find(params[:id])
+    respond_to do |format|
+      format.html { render 'posts/_show' }
+      format.js
+    end
   end
 
   def new
-	@post = Post.new
-  end
-
-
-
-  def create
-  	@post = Post.new(post_params)
-    @post.member_id = current_member.id
-  	if @post.save
-  		redirect_to @post, notice: "successfully created !"
-  	else
-  		@posts = Post.all
-  		render 'index'
-  	end
-  end
-
-  def edit
-    @post = Post.find(params[:id])
-      if current_member != @post.member
-      redirect_to posts_path
+    @post=current_user.posts.build
+    respond_to do |format|
+      format.html { render 'posts/_new' }
+      format.js
     end
   end
 
-
-
-  def update
-  	@post = Post.find(params[:id])
-  	if @post.update(post_params)
-  		redirect_to @post, notice: "successfully updated !"
-  	else
-  		render "edit"
-  	end
+  def create
+    @post=current_user.posts.build(post_params)
+    if @post.save
+      flash[:success] = "画像を投稿しました"
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js { redirect_to root_path }
+      end
+    else
+      respond_to do |format|
+        format.html { render 'posts/_new' }
+        format.js
+      end
+    end
   end
 
   def destroy
-  	@post = Post.find(params[:id])
-  	@post.destroy
-  	redirect_to posts_path, notice: "successfully delete !"
+    post=Post.find(params[:id])
+    post.destroy
+    flash[:info]="投稿を取り消しました"
+    redirect_to post.contributer
   end
 
-  def search
-    if params[:title].present?
-      @posts = Post.where('title LIKE ?', "%#{params[:title]}%")
-    else
-      @posts = Post.none
-    end
-  end
+
 
   private
+    def post_params
+      params.require(:post).permit(:content,:image,:image_data)
+    end
 
-  def post_params
-  	params.require(:post).permit(:title, :content,:image)
-  end
-
+    def correct_user
+      post=Post.find(params[:id])
+      contributer=post.contributer
+      unless current_user==contributer
+        session[:danger] = "このページにはアクセスできません"
+        redirect_to root_url
+      end
+    end
 end

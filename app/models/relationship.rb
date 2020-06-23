@@ -1,7 +1,14 @@
 class Relationship < ApplicationRecord
-  belongs_to :member
-  belongs_to :follow, class_name: 'Member'
+  default_scope->{order(created_at: :desc)}
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
+  validates :follower_id, presence: true
+  validates :followed_id, presence: true
+  validates :follower_id,  uniqueness: { scope: [:followed_id]}
+  validate :follower_followed_cannot_same
 
-  validates :member_id, presence: true
-  validates :follow_id, presence: true
+  private
+    def follower_followed_cannot_same
+      errors.add(:user, 'は自身をフォローできません') if follower_id==followed_id
+    end
 end

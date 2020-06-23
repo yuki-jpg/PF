@@ -1,27 +1,37 @@
-
-
-              <%= attachment_image_tag @posts, :image,:fill, 200, 200 %>
-
-            <h2 class="post-title"><%= @posts.title %></h2>
-                By <%= link_to @posts.member.name,member_path(@posts.member) %>
-
-              <li>
-                <% if @posts.member == current_member %>
-                <%= link_to '編集する', edit_post_path(@posts)%>
-                <%= link_to "削除", post_path(@posts), method: :delete %>
-                <% end %>
-              </li>
-            </ul>
-              
-    <h4>コメント</h4>
-    <div id="post_comments_area"><!-- #① -->
-      <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
-      <%= render partial: 'post_comments/index', locals: { post_comments: @comments } %>
+<div class="container post-show">
+  <div class="row">
+    <div class="col-md-6 clearfix">
+      <div class="img-container-large">
+        <%= image_tag @post&.image[:large].url %>
+      </div>
+      <%= link_to "#{@post.contributer.name} :", @post.contributer %>
+      <div class="post-content">
+        <%= @post.content %>
+      </div>
+      <div class="post-created-at pull-right">
+        <%= "#{time_ago_in_words(@post.created_at)}前" %>
+      </div>
     </div>
-    <% if member_signed_in? %>
-      <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
-      <%= render partial: 'post_comments/form', locals: { post_comment: @comment, post: @posts } %>
-    <% end %>
+    <div class="col-md-6 clearfix post-show-right">
+      <div id="like_button">
+        <%= render 'partials/like_button' %>
+      </div>
+      <div class="post-comments">
+        <%= render @post.comments %>
+      </div>
+      <div class="comment-form">
+        <%= form_for (current_user.comments.build) do |f| %>
+          <%= hidden_field_tag :post_id, @post.id %>
+          <%= f.text_field :content, class:"form-control comment-form-text" %>
+          <%= f.object.errors.full_messages.first if f.object.errors.present? %>
+          <%= f.submit "コメント", class:"btn btn-primary pull-right" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-
+</div>
+<div class="container delete-post">
+  <% if current_user==@post.contributer %>
+    <%= link_to '投稿を取り消す', @post, method: :delete, data:{confirm: "本当に取り消しますか"}, class:"btn btn-danger" %>
+  <% end %>
+</div>
