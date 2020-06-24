@@ -16,7 +16,7 @@ before_action :login_user?
   end
 
   def new
-    @post=current_user.posts.build
+    @post=current_user.posts.build(content: '')
     respond_to do |format|
       format.html { render 'posts/_new' }
       format.js
@@ -32,6 +32,9 @@ before_action :login_user?
         format.js { redirect_to root_path }
       end
     else
+      @post.errors.full_messages.each do |msg|
+        p msg
+      end
       respond_to do |format|
         format.html { render 'posts/_new' }
         format.js
@@ -46,6 +49,14 @@ before_action :login_user?
     redirect_to post.contributer
   end
 
+  def hashtag
+    @user = current_user
+    @tag = Hashtag.find_by(hashname: params[:name])
+    @posts = @tag.posts.build
+    @post  = @tag.posts.page(params[:page])
+    @comment    = Comment.new
+    @comments   = @posts.comments
+  end
 
 
   private

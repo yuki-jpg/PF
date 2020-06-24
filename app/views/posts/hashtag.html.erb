@@ -1,0 +1,25 @@
+<% @page_title = @tag.hashname %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <% unless current_user==@user %>
+
+      <% end %>
+      <div id="user-profile">
+        <%= render 'partials/user_profile' %>
+      </div>
+    </div>
+    <div class="user-contents col-md-8">
+      <h4 class="sub-title"><%= @tag.hashname %></h4>
+      <% if @post.exists? %>
+        <ul class="user-posts">
+          <%= render @post %>
+        </ul>
+        <%= paginate @post %>
+      <% else %>
+        <p>まだ投稿がありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,8 @@
       </div>
       <%= link_to "#{@post.contributer.name} :", @post.contributer %>
       <div class="post-content">
-        <%= @post.content %>
+        <%= render_with_hashtags(@post.content) %>
+
       </div>
       <div class="post-created-at pull-right">
         <%= "#{time_ago_in_words(@post.created_at)}前" %>
