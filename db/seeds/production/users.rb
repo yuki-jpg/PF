@@ -1,8 +1,8 @@
 User.create!(
   email: "taku@example.com",
-  name: "広澤 拓",
+  name: "mtmt",
   account: "master",
-  introduction: "初めまして。このサイトの製作者です。ご覧いただきありがとうございます。ごゆるりとお過ごしください。",
+  introduction: "このサイトの製作者です。",
   web: Faker::Internet.url,
   tel: Faker::PhoneNumber.phone_number,
   sex: 1,
@@ -13,9 +13,9 @@ User.create!(
 )
 User.create!(
   email: "test@example.com",
-  name: "テスト太郎",
+  name: "テストくん",
   account: "tester",
-  introduction: "初めまして。テストユーザーです。トップページの「かんたんログイン」で私にログインできます。",
+  introduction: "テストユーザーです。",
   web: Faker::Internet.url,
   tel: Faker::PhoneNumber.phone_number,
   sex: 1,
