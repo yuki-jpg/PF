@@ -1,0 +1,8 @@
+<div class="user-view clearfix ">
+  <% unless user.image_data.nil? %>
+    <%=  image_tag user.image[:small].url, class:"user-thumb", style:"width: 60px;"%>
+  <% end %>
+  <h4><%= link_to user.name, admins_user_path(user) %></h4>
+  <p><%= user.introduction&.truncate(30) %></p>
+  <p><%= link_to '退会させる', admins_user_path(user.id), method: :delete, data:{confirm: "本当に退会しますか"}, class:"btn btn-danger  user-btn" %></p>
+</div>

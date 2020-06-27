@@ -65,3 +65,16 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
+gem 'dotenv-rails'
+group :production do
+  #gem 'mysql2'
+end
+
+gem 'font-awesome-rails'
+gem 'kaminari'
+gem 'kaminari-i18n'
+gem 'mini_magick'
+gem 'shrine', '~> 2.11'
+gem 'shrine-memory'
+gem 'image_processing', '~>1.0'
+gem 'pry-rails'

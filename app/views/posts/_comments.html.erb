@@ -1,0 +1,11 @@
+<div class="post-comments" id="post_comments" >
+  <%= render @post.comments %>
+</div>
+<div class="comment-form clearfix">
+  <%= form_for (current_user.comments.build), remote: true do |f| %>
+    <%= hidden_field_tag :post_id, @post.id %>
+    <%= f.text_field :content, class:"form-control comment-form-text" %>
+    <%= f.object.errors.full_messages.first if f.object.errors.present? %>
+    <%= f.submit "コメント", class:"btn btn-primary pull-right" %>
+  <% end %>
+</div>

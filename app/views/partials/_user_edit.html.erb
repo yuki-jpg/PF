@@ -1,0 +1,50 @@
+<div class="left-side-content">
+  <%= link_to 'ログアウト', logout_path, method: :delete, class:"btn btn-danger btn-block"  %>
+  <br>
+  <%= form_for @user do |f| %>
+    <%= render 'partials/errors', obj:f.object %>
+
+    <%= f.label :プロフィール画像 %>
+    <%= f.hidden_field :image, value:@user.cached_image_data %>
+    <%= f.file_field :image, accept: 'image/jpeg,image/png'%>
+    <br>
+    
+    <%= f.label :ユーザーネーム %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.label :アカウントネーム %>
+    <%= f.text_field :account, class: 'form-control' %>
+
+    
+
+    <%= f.label :自己紹介 %>
+    <%= f.text_area :introduction, class: 'form-control' %>
+
+    <%= f.label :web %>
+    <%= f.text_field :web, class: 'form-control' %>
+
+    <%= f.label :tel %>
+    <%= f.text_field :tel, class: 'form-control' %>
+
+    <% if current_user.email=="test@example.com" %>
+      <p>テストユーザーはパスワードを変更できません</p>
+      <p>テストユーザーはメールアドレスを変更できません</p>
+    <% else %>
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control' %>
+      
+      <%= link_to 'パスワードの変更', :edit_password %>
+    <% end %>
+    <br><br>
+
+    <%= f.submit '更新',class: "btn btn-primary btn-block"%>
+    <%= link_to 'キャンセル', user_path(@user), class:"btn btn-default btn-block" %>
+  <% end %>
+  <hr>
+  <% if current_user.email=="test@example.com" %>
+    <p>テストユーザーは退会できません</p>
+  <% else %>
+    <br>
+    <%= link_to '退会する', user_path(@user), method: :delete, data:{confirm: "本当に退会しますか"}, class:"btn btn-danger btn-block" %>
+  <% end %>
+</div>

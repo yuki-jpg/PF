@@ -1,0 +1,16 @@
+<% if login? %>
+  <div class="container left-side-content mordal-window">
+    <%= form_for @post, remote: true do |f| %>
+      <%= render 'partials/errors', obj:f.object %>
+
+      <%= f.label :投稿画像 %>
+      <%= f.hidden_field :image, value:@post.cached_image_data %>
+      <%= f.file_field :image, accept: 'image/jpeg,image/png'%>
+      <br>
+      <%= f.label :キャプション %>
+      <%= f.text_area :content, class: 'form-control',placeholder:"キャプションを入力" %>
+      <%= f.submit "投稿する", class: "btn btn-primary btn-block"%>
+      <button type="button" class="btn btn-default pull-right" data-dismiss="modal">閉じる</button>
+    <% end %>
+  </div>
+<% end %>
