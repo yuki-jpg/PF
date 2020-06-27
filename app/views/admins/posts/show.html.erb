@@ -1,0 +1,26 @@
+<div class="container post-show">
+  <div class="row">
+    <div class="col-md-6 clearfix">
+      <div class="img-container-large">
+        <%= image_tag @post&.image[:large].url %>
+      </div>
+      <%= link_to "#{@post.contributer.name} :", @post.contributer %>
+      <div class="post-content">
+        <%= @post.content %>
+      </div>
+      <div class="post-created-at pull-right">
+        <%= "#{time_ago_in_words(@post.created_at)}前" %>
+      </div>
+    </div>
+    <div class="col-md-6 clearfix post-show-right">
+     
+      <div class="post-comments">
+        <%= render @post.comments %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container delete-post">
+
+    <%= link_to '投稿を取り消す', admins_post_path(@post), method: :delete, data:{confirm: "本当に取り消しますか"}, class:"btn btn-danger" %>
+</div>

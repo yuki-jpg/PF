@@ -1,0 +1,20 @@
+<div class="container">
+
+    <h2 class="admin_log">管理者ログイン</h2>
+    <%= form_for(resource, as: resource_name, url: admin_session_path) do |f| %>
+        <table class="admin_table">
+          <tbody>
+            <tr>
+              <th width="200" height="50"><%= f.label :email %></th>
+              <td><%= f.email_field :email, autofocus: true, class: "form-control", autocomplete: "email", size:"50" %></th>
+            </tr>
+            <tr>
+              <th height="50"> <%= f.label :password %></th>
+              <td><%= f.password_field :password, class: "form-control", autocomplete: "current-password" %>
+            </tr>
+          </tbody>
+        </table>
+        <%= f.submit "ログイン", class: "btn btn-primary log_in_btn admin_btn" %>
+    <% end %>
+  
+  </div>

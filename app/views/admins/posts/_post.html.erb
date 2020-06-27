@@ -1,0 +1,5 @@
+<li class="thumbs" id='thumbs'>
+  <%= link_to admins_post_path(post.id) do %>
+    <%=  image_tag post.image[:small].url %>
+  <% end %>
+</li>

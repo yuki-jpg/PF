@@ -1,8 +1,22 @@
 Rails.application.routes.draw do
+
+  devise_for :admins,controllers: {
+    sessions:        "admins/sessions",
+    passwords:       "admins/passwords",
+    registrations:   "admins/registrations"
+  }
+
   root 'home#top'
   get 'about', to: 'home#about'
   get 'policy', to: 'home#policy'
   get '/post/hashtag/:name', to: "posts#hashtag"
+
+  namespace :admins do
+      root "admins#top"
+      resources :users
+      resources :posts
+      resources :comments, only: [:create, :destroy]
+  end
 
   resources :users do
     member do

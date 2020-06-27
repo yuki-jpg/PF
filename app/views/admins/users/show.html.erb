@@ -1,0 +1,23 @@
+<% @page_title = @user.name %>
+
+<div class="container">
+  <div class="row">
+
+      <div id="user-profile">
+        <%= render 'admins/users/user_profile' %>
+      </div>
+
+
+  <div class="user-contents col-md-8">
+      <h4 class="sub-title"><%= "投稿一覧" %></h4>
+      <% if @posts.exists? %>
+        <ul class="user-posts">
+          <%= render @posts %>
+        </ul>
+        <%= paginate @posts %>
+      <% else %>
+        <p>まだ投稿がありません。</p>
+      <% end %>
+    </div>
+  </div>
+ </div>

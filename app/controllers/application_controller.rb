@@ -21,4 +21,5 @@ class ApplicationController < ActionController::Base
     @post=Post.new
   end
 
+
 end
