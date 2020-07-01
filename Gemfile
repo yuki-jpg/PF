@@ -48,6 +48,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rbenv'
 end
 
 group :test do
@@ -79,3 +83,4 @@ gem 'shrine-memory'
 gem 'image_processing', '~>1.0'
 gem 'pry-rails'
 gem "aws-sdk-s3"
+gem 'dotenv-rails'

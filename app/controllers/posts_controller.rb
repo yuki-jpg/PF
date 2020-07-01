@@ -27,6 +27,16 @@ before_action :login_user?
     @post=current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "画像を投稿しました"
+      tags = Vision.get_image_data(@post.image)
+
+      content=@post.content
+      tags.each do |tag|
+      tag=tag.downcase.gsub(" ", "")
+      @post.hashtags << Hashtag.find_or_create_by(hashname: tag)
+      content=content+ " ##{tag}"
+      end
+      @post.content=content
+      @post.save
       respond_to do |format|
         format.html { redirect_to root_path }
         format.js { redirect_to root_path }
