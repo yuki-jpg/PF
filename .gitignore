@@ -30,3 +30,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /.env
+/public/uploads/*.jpg
+/public/uploads/*.png
+!/public/uploads/.keep
+/public/uploads/cache/*
+!/public/uploads/cache/.keep
