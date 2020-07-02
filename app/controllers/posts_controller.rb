@@ -27,6 +27,7 @@ before_action :login_user?
     @post=current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "画像を投稿しました"
+      logger.debug(@post)
       tags = Vision.get_image_data(@post.image)
 
       content=@post.content
