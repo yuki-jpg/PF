@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.14.1"
 
-set :application, "Popfuns"
+set :application, "PF"
 set :repo_url, "https://github.com/yuki-jpg/PF.git"
 set :deploy_to, "/home/ec2-user/PF"
 set :rbenv_ruby, '2.5.7'
