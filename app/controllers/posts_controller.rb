@@ -25,10 +25,10 @@ before_action :login_user?
 
   def create
     @post=current_user.posts.build(post_params)
+    tags = Vision.get_image_data(post_params['image'])
     if @post.save
       flash[:success] = "画像を投稿しました"
       logger.debug(@post)
-      tags = Vision.get_image_data(@post.image)
 
       content=@post.content
       tags.each do |tag|

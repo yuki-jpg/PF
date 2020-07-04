@@ -2,7 +2,7 @@ require "shrine"
 require 'shrine/storage/file_system'
 require 'shrine/storage/s3'
 
-if Rails.env.production?
+if !Rails.env.production?
   # require "shrine/storage/s3"
   s3_options = {
     access_key_id:     ENV['S3_ACCESS_KEY_ID'],
