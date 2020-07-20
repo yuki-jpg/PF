@@ -84,3 +84,5 @@ gem 'image_processing', '~>1.0'
 gem 'pry-rails'
 gem "aws-sdk-s3"
 gem 'dotenv-rails'
+gem 'faker'
+gem 'yoshida'
