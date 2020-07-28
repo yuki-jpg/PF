@@ -32,7 +32,7 @@ before_action :login_user?
 
       content=@post.content
       tags.each do |tag|
-      tag=tag.downcase.gsub(" ", "")
+      tag=tag.downcase.gsub(" ", "") #VisionAPI からの戻り値に半角スペースがあるので半角を取り除いています。
       @post.hashtags << Hashtag.find_or_create_by(hashname: tag)
       content=content+ " ##{tag}"
       end
