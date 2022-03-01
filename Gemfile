@@ -81,7 +81,7 @@ gem 'kaminari-i18n'
 gem 'mini_magick'
 gem 'shrine', '~> 2.11'
 gem 'shrine-memory'
-gem 'image_processing', '~>1.0'
+gem 'image_processing', '~>1.12'
 gem 'pry-rails'
 gem "aws-sdk-s3"
 gem 'dotenv-rails'
